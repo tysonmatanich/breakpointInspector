@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">@-webkit-viewport{width:device-width}@-moz-viewport{width:device-width}@-ms-viewport{width:device-width}@-o-viewport{width:device-width}@viewport{width:device-width}</style>
+    <script type="text/javascript">
+        /* Fix for IE Mobile 10.0 */
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            msViewportStyle.appendChild(document.createTextNode("@-ms-viewport{width:auto!important}"));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+    </script>
+    <title>BreakpointInspector</title>
+    <link href="http://fonts.googleapis.com/css?family=Lobster|Source+Sans+Pro:300,400" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: #424242;
+            background-color: #E8DDCB;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 300;
+            font-size: 110%;
+            line-height: 1.75em;
+        }
+
+        /* Highlight color */
+        ::selection {
+	        color: #fff;
+            background-color: #f77300;
+	    }
+        ::-moz-selection {
+            color: #fff;
+	        background-color: #f77300;
+        }
+
+        .stage {
+            max-width: 31.111em;
+            margin: 0;
+            padding: 0 1em;
+        }
+
+        @media (min-width: 63.750em) {
+            .stage {
+                margin: 0 auto;
+            }
+        }
+
+        /* Links
+        --------------------------------------------------*/
+        a {
+            border-bottom: 1px dotted #BCBCBC;
+            border-bottom-color: rgba(150, 150, 150, 0.6);
+            color: #006a92;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            border-bottom-style: solid;
+        }
+
+        /* Header
+        ==================================================*/
+        .header {
+            padding: 0.25em;
+            background-color: #fff;
+        }
+
+        @media (min-height: 34.375em) {
+            .header {
+                padding-top: 1em;
+                padding-bottom: 1em;
+            }
+        }
+
+        /* Heading 1
+        --------------------------------------------------*/
+        h1 { 
+            font-size: 1.5em;
+            font-family: 'Lobster', sans-serif;
+            color: #f77300;
+        }
+
+        @media (min-width: 19.063em) {
+            h1 { 
+                font-size: 1.75em;
+            }
+        }
+
+        @media (min-width: 23.750em) {
+            h1 {
+                font-size: 2.286em;
+            }
+        }
+
+        @media (min-width: 27.500em) {
+            h1 {
+                font-size: 2.75em;
+            }
+        }
+
+        h1 span.break { 
+            display: inline-block;
+            width: 0;
+        }
+
+        /* Heading 2
+        --------------------------------------------------*/
+        h2 {
+            font-size: 1.188em;
+            font-weight: 300;
+        }
+
+        /* Heading 3
+        --------------------------------------------------*/
+        h3 {
+            font-size: 1em;
+            font-weight: 400;
+            margin: 1em 0;
+        }
+
+        /* Main content
+        ==================================================*/
+        .main {
+            border-top: 0.278em solid #74BCD5;
+            padding: 1em 0 2.5em;
+            color: #fff;
+            background-color: #007D96;
+        }
+
+        .main a {
+            color: #ff7;
+            border-bottom-color: #ccc;
+            border-bottom-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Instructions
+        --------------------------------------------------*/
+        .instructions {
+            margin-top: 0;
+            margin-bottom: 2em;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .instructions label {
+            display: block;
+        }
+
+        @media (min-width: 27.500em) {
+            .instructions {
+                text-align: left;
+            }
+
+            .instructions label {
+                display: inline;
+                padding-right: 1em;
+            }
+        }
+
+        /* Button
+        --------------------------------------------------*/
+        a.button {
+            display: inline-block;
+            margin-top: 0.5em;
+            border: 0;
+            border-radius: 50%;
+            padding: 2.25em 1em;
+            min-width: 5.5em;
+            font-size: 1em;
+            font-weight: 400;
+            text-align: center;
+            color: #fff;
+            background-color: #FF7700;
+            -webkit-transition: background-color 0.3s ease-in, color 0.3s ease-in;
+	        -moz-transition: background-color 0.3s ease-in, color 0.3s ease-in;
+	        -ms-transition: background-color 0.3s ease-in, color 0.3s ease-in;
+	        -o-transition: background-color 0.3s ease-in, color 0.3s ease-in;
+	        transition: background-color 0.3s ease-in, color 0.3s ease-in;
+        }
+
+        /* Highlight color */
+        a.button ::selection {
+            background-color: #007D96;
+	    }
+        a.button ::-moz-selection {
+	        background-color: #007D96;
+        }
+
+        a.button:hover {
+            background-color: #FF8D00;
+        }
+
+        a.button span {
+            display: block;
+            line-height: 1.25em;
+        }
+
+        /* Footer
+        ==================================================*/ 
+        .footer {
+            border-top: 0.278em solid #ccc2b0;
+            padding-top: 1em;
+            padding-bottom: 0.25em;
+            font-weight: 400;
+        }
+        .footer p {
+            font-size: 0.875em;
+        }
+
+        /* Clear
+        ==================================================*/ 
+        .clear {
+            float: none !important;
+            clear: both !important;
+            height: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-6050963-1']);
+        _gaq.push(['_setDomainName', 'tysonmatanich.github.io']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <div class="body">
+        <header><div class="header">
+            <div class="stage">
+                <h1>Breakpoint<span class="break"> </span>Inspector</h1>
+                <h2>A CSS media query bookmarklet.</h2>
+            </div>
+        </div></header>
+        <main><div class="main">
+            <div class="stage">
+                <noscript>
+                    <p>Sorry, this page requires JavaScript :(</p>
+                </noscript>
+                <section>
+                    <p class="instructions"><label for="target">Drag the ball to your bookmarks.</label> <a id="target" href="#" class="button"><span>Breakpoint</span><span>Inspector</span></a></p>
+                </section>
+                <section>
+                    <h3>BreakpointInspector displays the CSS media queries used on a page.</h3>
+                    <p>Unfortunately, cross-domain style sheets cannot be inspected in some browsers, but I added a bit of AJAX magic to fix that for most domains.
+                    To learn more about viewports, inconsistencies between browsers, and detecting viewport size using JavaScript visit <a href="http://www.matanich.com/2013/01/07/viewport-size/">my blog</a>.</p>
+                </section>
+            </div>
+        </div></main>
+        <footer><div class="footer">
+            <div class="stage">
+                <p>Get or fork <a href="http://github.com/tysonmatanich/breakpointInspector">source</a>. Created by <a href="http://twitter.com/tysonmatanich">@tysonmatanich</a></p>
+            </div>
+        </div></footer>
+    </div>
+    <script type="text/javascript">
+        // Generate bookmarklet
+        var bookmarklet = "(function(window){";
+        bookmarklet += "var s=document.createElement('script');";
+        bookmarklet += "s.type='text/javascript';";
+        bookmarklet += "s.src='http://tysonmatanich.github.io/breakpointInspector/breakpointInspector.js?v='+(Math.random()+'').replace('.','');";
+        bookmarklet += "document.getElementsByTagName('body')[0].appendChild(s);";
+        bookmarklet += "})(this);";
+
+        // Set link
+        document.getElementById("target").href = "javascript:" + bookmarklet;
+
+        // Run bookmarklet
+        eval(bookmarklet);
+    </script>
+</body>
+</html>
